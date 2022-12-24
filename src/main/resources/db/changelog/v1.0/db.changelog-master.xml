@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+
+    <changeSet id="create_commis_seq" author="borisovtimofey">
+        <preConditions>
+            <not>
+                <sequenceExists sequenceName="client_code_seq"></sequenceExists>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="client_code_seq" minValue="0" incrementBy="1"></createSequence>
+        <rollback>
+            <dropSequence sequenceName="client_code_seq"/>
+        </rollback>
+    </changeSet>
+
+
+
+    <changeSet id="create_commis_table_clients" author="borisovtimofey">
+        <preConditions>
+            <not>
+                <tableExists tableName="clients"/>
+            </not>
+            <and>
+                <sequenceExists sequenceName="client_code_seq"/>
+            </and>
+        </preConditions>
+        <createTable tableName="clients">
+            <column name="ID" type="integer" valueSequenceNext="client_code_seq"></column>
+            <column name="client_code" type="varchar"></column>
+            <column name="margin" type="boolean" />
+
+
+        </createTable>
+        <addPrimaryKey tableName="clients" columnNames="client_code" />
+        <rollback>
+            <dropTable tableName="clients" />
+        </rollback>
+    </changeSet>
+    <changeSet id="tag-1.0" author="borisovtimofey">
+        <tagDatabase tag="1.0"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=commis
+    username: se
+    password: admin
+  jpa:
+    properties:
+      hibernate:
+        default_schema: commis
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        show_sql: false
+        temp:
+          use_jdbc_metadata_defaults: false
+  liquibase:
+    default-schema: commis
+    liquibase-schema: commis
+    user: postgres
+    password: admin
+    change-log: classpath:db/changelog/master.xml
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=commis

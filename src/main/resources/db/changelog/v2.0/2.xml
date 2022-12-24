@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+
+
+
+    
+
+
+    <changeSet id="alter_table_clients" author="borisov">
+        <preConditions>
+            <tableExists tableName="clients"/>
+        </preConditions>
+        <addColumn tableName="clients">
+            <column name="createDate" type="timestamp"></column>
+        </addColumn>
+        <rollback>
+            <dropColumn tableName="clients" columnName="createDate"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tag-2.0" author="borisovtimofey">
+        <tagDatabase tag="2.0"/>
+    </changeSet>
+</databaseChangeLog>
